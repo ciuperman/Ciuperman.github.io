@@ -6,7 +6,23 @@ align-items: center;
 height: 100vh;
 margin: 0;
 text-align: center;
+background-image: url('image.jpg');
+background-size: cover;
+color: white;
+background-color: black;
 }
 h1, p {
-font-size: 2em; /* Adjust as needed */
+font-size: 2em;
+}
+/* Add Google Fonts link in HTML head: <link href="https://fonts.googleapis.com/css2?family=YourFont&display=swap" rel="stylesheet"> */
+body {
+font-family: 'YourFont', sans-serif;
+}
+nav ul {
+list-style: none;
+padding: 0;
+}
+nav li {
+display: inline;
+margin: 0 10px;
 }
