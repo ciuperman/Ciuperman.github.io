@@ -1,23 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CIUPERMAN</title>
+    <meta name="description" content="Ciuperman — povești din pădure, ciuperci și Carpați.">
+    <title>Ciuperman</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <main class="stage" role="img" aria-label="Pleurotus mushroom illustration">
-        <div class="dock">
-            <a class="btn" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a>
-            <p class="corner">
-                <span class="name">CIUPERMAN</span>
-                <span class="line">We are the Champignions, my friend!</span>
-            </p>
-        </div>
+    <header class="site-header">
+        <a class="logo" href="#top">Ciuperman</a>
+        <nav class="nav" aria-label="Principal">
+            <a href="#despre">Despre</a>
+            <a href="#povesti">Povești</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main id="top">
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Carpați · ciuperci · imaginație</p>
+                <h1>Ciuperman</h1>
+                <p class="lede">Un personaj și un spațiu mic pentru povești din pădure — tăcute, clare, fără zgomot de marketing.</p>
+                <p class="lede en">A small studio for forest stories from the mountains: mushrooms, weather, and short films.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-dark" href="#despre">Despre proiect</a>
+                    <a class="btn btn-line" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a>
+                </div>
+            </div>
+            <figure class="hero-art">
+                <img src="Ciuperman.PNG" width="1600" height="900" alt="Ilustrație Pleurotus — ciuperci stridie desenate pe fond crem">
+            </figure>
+        </section>
+
+        <section id="despre" class="block">
+            <div class="block-head">
+                <p class="eyebrow">Despre</p>
+                <h2>Ce este Ciuperman</h2>
+            </div>
+            <div class="split">
+                <p class="lead-col">Nu este o corporație. Este un nume sub care se adună desene, filme scurte și note din zonă de munte.</p>
+                <div class="prose">
+                    <p>Ciuperman pornește din pădure: ciuperci, poteci, vreme și un personaj care merge printre ele. Tonul e serios față de natură și lejer față de sine.</p>
+                    <p>Site-ul este baza publică. Poveștile lungi trăiesc pe video; aici rămân cadrul, numele și punctul de contact.</p>
+                    <p class="en">English: Ciuperman is a forest character and a quiet place for stories — not a shop, not a pitch deck.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="povesti" class="block block-soft">
+            <div class="block-head">
+                <p class="eyebrow">Arhivă</p>
+                <h2>Povești</h2>
+            </div>
+            <div class="cards">
+                <article class="card">
+                    <p class="card-kicker">01 · Personaj</p>
+                    <h3>Eroul din iarbă</h3>
+                    <p>Un om-ciupercă în pădure, nu un supererou de oraș. Pelerină, emblemă, liniște.</p>
+                </article>
+                <article class="card">
+                    <p class="card-kicker">02 · Natură</p>
+                    <h3>Pleurotus și restul pădurii</h3>
+                    <p>Desenul de pe pagină este un studiu de ciupercă stridie. Va rămâne punctul vizual al site-ului până avem un portret nou.</p>
+                </article>
+                <article class="card">
+                    <p class="card-kicker">03 · Video</p>
+                    <h3>Filme scurte</h3>
+                    <p>Secțiunea se umple când există un canal și piese gata de arătat. Până atunci, butonul YouTube e doar ușa.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact" class="block">
+            <div class="block-head">
+                <p class="eyebrow">Contact</p>
+                <h2>Scrie</h2>
+            </div>
+            <div class="split">
+                <p class="lead-col">Pentru colaborări, povești sau un simplu salut — un mesaj e de ajuns.</p>
+                <div class="prose">
+                    <p>Trimite canalul tău de YouTube sau Facebook și îl legăm aici corect, nu spre pagina generică.</p>
+                    <p><a class="text-link" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a></p>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <footer class="site-footer">
+        <span>Ciuperman</span>
+        <span class="sig">We are the Champignions, my friend!</span>
+    </footer>
 </body>
 </html>
