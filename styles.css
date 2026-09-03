@@ -1,27 +1,72 @@
-body {
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-height: 100vh;
-margin: 0;
-text-align: center;
-background-size: cover;
-color: white;
-background-color: black;
+* {
+    box-sizing: border-box;
 }
-h1, p {
-font-size: 2em;
+
+html, body {
+    margin: 0;
+    min-height: 100%;
+    height: 100%;
+    background: #ede4d4;
+    color: #3a2a1c;
 }
-/* Add Google Fonts link in HTML head: <link href="https://fonts.googleapis.com/css2?family=YourFont&display=swap" rel="stylesheet"> */
-body {
-font-family: 'YourFont', sans-serif;
+
+.stage {
+    min-height: 100svh;
+    width: 100%;
+    margin: 0;
+    background-color: #ede4d4;
+    background-image: url("Ciuperman.PNG");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
 }
-nav ul {
-list-style: none;
-padding: 0;
+
+.corner {
+    position: absolute;
+    left: max(1rem, env(safe-area-inset-left));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    margin: 0;
+    max-width: 16rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.55rem 0.7rem;
+    background: rgba(237, 228, 212, 0.55);
+    backdrop-filter: blur(4px);
+    border-radius: 4px;
 }
-nav li {
-display: inline;
-margin: 0 10px;
+
+.name {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    line-height: 1.2;
+}
+
+.line {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 0.72rem;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.35;
+    opacity: 0.88;
+}
+
+@media (min-width: 700px) {
+    .corner {
+        left: 1.5rem;
+        bottom: 1.5rem;
+        max-width: 18rem;
+    }
+
+    .name {
+        font-size: 0.95rem;
+    }
+
+    .line {
+        font-size: 0.8rem;
+    }
 }
