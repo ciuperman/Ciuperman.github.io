@@ -37,14 +37,19 @@ a { color: inherit; }
 
 .topbar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: stretch;
   gap: 12px;
-  padding: 8px 4px 18px;
+  padding: 0 0 18px;
   position: sticky;
   top: 0;
   z-index: 4;
   background: linear-gradient(var(--bg) 70%, transparent);
+}
+.banner {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 10px var(--glow)) drop-shadow(0 0 22px rgba(57,255,20,0.28));
 }
 .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .logo {
@@ -87,6 +92,7 @@ a { color: inherit; }
   border-radius: 999px;
   overflow: hidden;
   background: var(--bg-2);
+  align-self: flex-end;
 }
 .lang button {
   background: transparent;
