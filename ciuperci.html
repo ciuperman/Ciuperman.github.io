@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciuperci</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #05070a; overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+  .back {
+    position: fixed; top: 14px; left: 14px; z-index: 5;
+    font: 500 14px/1 'IBM Plex Mono', monospace;
+    color: #7bd88a; text-decoration: none;
+    padding: 8px 12px; border: 1px solid #1f3a26; border-radius: 999px;
+    background: rgba(10,20,14,.5); backdrop-filter: blur(4px);
+  }
+  .back:hover { color: #bff5c8; border-color: #3a6b45; }
+</style>
+</head>
+<body>
+  <a class="back" href="/">← acasă</a>
+  <canvas id="c"></canvas>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H, dpr;
+function resize() {
+  dpr = Math.min(window.devicePixelRatio || 1, 2);
+  W = canvas.clientWidth; H = canvas.clientHeight;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+window.addEventListener('resize', resize); resize();
+
+const GROUND = () => H * 0.82;
+const spores = [];   // particule care se ridică din pământ
+const shrooms = [];  // ciupercile în viață
+let nextSpawn = 0;
+
+function spawn() {
+  const x = 20 + Math.random() * (W - 40);
+  const delay = 400 + Math.random() * 900;
+  spores.push({ x, t: 0, delay, life: 0 });
+}
+
+function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+function drawShroom(s) {
+  const g = GROUND();
+  const grow = easeOut(Math.min(1, s.age / s.growDur));
+  const fade = s.age > s.life - s.fadeDur
+    ? Math.max(0, (s.life - s.age) / s.fadeDur) : 1;
+  const alpha = grow * fade;
+  if (alpha <= 0.01) return;
+
+  const h = s.h * grow;
+  const capR = s.capR * grow;
+  ctx.save();
+  ctx.globalAlpha = alpha;
+
+  // glow
+  const grd = ctx.createRadialGradient(s.x, g - h * 0.5, 0, s.x, g - h * 0.5, capR * 2.4);
+  grd.addColorStop(0, 'rgba(120,255,150,0.35)');
+  grd.addColorStop(1, 'rgba(120,255,150,0)');
+  ctx.fillStyle = grd;
+  ctx.beginPath();
+  ctx.ellipse(s.x, g - h * 0.5, capR * 2.4, capR * 1.6, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // tijă
+  ctx.strokeStyle = '#bff5c8';
+  ctx.lineWidth = Math.max(1.5, s.stemW * grow);
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(s.x, g);
+  ctx.lineTo(s.x, g - h);
+  ctx.stroke();
+
+  // pălărie
+  ctx.fillStyle = '#7bd88a';
+  ctx.strokeStyle = '#eafff0';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.ellipse(s.x, g - h, capR, capR * 0.42, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+
+  // puncte pe pălărie
+  ctx.fillStyle = 'rgba(5,7,10,0.35)';
+  for (const p of s.dots) {
+    ctx.beginPath();
+    ctx.arc(s.x + p.dx * capR, g - h + p.dy * capR * 0.42, p.r * grow, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
+function drawSpore(sp) {
+  const g = GROUND();
+  const rise = easeOut(Math.min(1, sp.t / sp.delay));
+  const y = g - rise * (18 + Math.random() * 10);
+  const a = (1 - rise) * 0.8;
+  ctx.save();
+  ctx.globalAlpha = a;
+  ctx.fillStyle = '#9bffb0';
+  ctx.shadowColor = '#7bd88a';
+  ctx.shadowBlur = 8;
+  ctx.beginPath();
+  ctx.arc(sp.x, y, 1.6 + Math.random() * 1.2, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+let last = performance.now();
+function loop(now) {
+  const dt = Math.min(50, now - last); last = now;
+  ctx.clearRect(0, 0, W, H);
+
+  // pământ
+  const g = GROUND();
+  const soil = ctx.createLinearGradient(0, g, 0, H);
+  soil.addColorStop(0, '#0c1610');
+  soil.addColorStop(1, '#05070a');
+  ctx.fillStyle = soil;
+  ctx.fillRect(0, g, W, H - g);
+  ctx.strokeStyle = 'rgba(123,216,138,0.18)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, g); ctx.lineTo(W, g); ctx.stroke();
+
+  // spores
+  for (let i = spores.length - 1; i >= 0; i--) {
+    const sp = spores[i];
+    sp.t += dt;
+    drawSpore(sp);
+    if (sp.t >= sp.delay) {
+      spores.splice(i, 1);
+      shrooms.push({
+        x: sp.x,
+        h: 26 + Math.random() * 34,
+        capR: 9 + Math.random() * 11,
+        stemW: 2 + Math.random() * 2.5,
+        growDur: 700 + Math.random() * 500,
+        life: 2600 + Math.random() * 2200,
+        fadeDur: 900,
+        age: 0,
+        dots: Array.from({length: 3 + (Math.random()*3|0)}, () => ({
+          dx: (Math.random()*2-1)*0.7,
+          dy: (Math.random()*2-1)*0.5,
+          r: 0.8 + Math.random()*1.4
+        }))
+      });
+    }
+  }
+
+  // shrooms
+  for (let i = shrooms.length - 1; i >= 0; i--) {
+    const s = shrooms[i];
+    s.age += dt;
+    drawShroom(s);
+    if (s.age >= s.life) shrooms.splice(i, 1);
+  }
+
+  nextSpawn -= dt;
+  if (nextSpawn <= 0 && shrooms.length < 9) {
+    spawn();
+    nextSpawn = 900 + Math.random() * 1600;
+  }
+
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
