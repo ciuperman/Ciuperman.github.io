@@ -1,34 +1,42 @@
-<svg width="1600" height="520" viewBox="0 0 1600 520" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1600" height="520" fill="#000000"/>
-  <g filter="url(#neon)" stroke="#39ff14" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <!-- Cape flowing behind -->
-    <path d="M 560 110 Q 470 200 500 340 Q 520 420 600 460 L 640 460 Q 600 420 620 340 Q 640 200 720 110 Z"/>
-    <!-- Head -->
-    <circle cx="640" cy="140" r="40"/>
-    <!-- Mask eyes -->
-    <path d="M 622 138 L 632 138 L 628 148 Z M 648 138 L 658 138 L 654 148 Z" fill="#39ff14"/>
-    <!-- Neck -->
-    <path d="M 628 180 L 652 180"/>
-    <!-- Shoulders and chest -->
-    <path d="M 600 180 Q 590 260 600 340 L 680 340 Q 690 260 680 180 Z"/>
-    <!-- Chest emblem (mushroom) -->
-    <ellipse cx="640" cy="260" rx="24" ry="16" fill="#39ff14"/>
-    <rect x="632" y="270" width="16" height="22" rx="3" fill="#70BF70"/>
-    <!-- Belt -->
-    <rect x="620" y="330" width="40" height="6" rx="2"/>
-    <circle cx="640" cy="333" r="3.5" fill="#000"/>
-    <!-- Legs -->
-    <path d="M 600 340 L 595 420 L 615 420 L 620 340 Z M 660 340 L 665 420 L 685 420 L 680 340 Z"/>
-    <!-- Boots -->
-    <ellipse cx="605" cy="425" rx="13" ry="7"/>
-    <ellipse cx="675" cy="425" rx="13" ry="7"/>
-    <!-- Arms -->
-    <path d="M 590 200 Q 540 270 560 350 L 585 350 Q 565 270 610 200 Z"/>
-    <path d="M 690 200 Q 740 270 720 350 L 695 350 Q 715 270 670 200 Z"/>
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#000000"/>
+  <g filter="url(#neon)" stroke="#39ff14" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Single continuous outline: cape, head, body, legs, boots, arms, shield -->
+    <path d="M 1180 120
+             L 1180 300
+             Q 1180 360 1140 400
+             Q 1100 440 1040 460
+             Q 980 480 920 470
+             Q 860 460 820 430
+             Q 780 400 760 360
+             Q 740 320 740 280
+             L 740 120
+             Q 740 80 780 80
+             Q 820 80 820 120
+             L 820 200
+             Q 860 180 900 180
+             Q 940 180 980 200
+             L 980 120
+             Q 980 80 1020 80
+             Q 1060 80 1060 120
+             L 1060 260
+             Q 1100 240 1140 260
+             L 1140 120
+             Q 1140 80 1180 80
+             Q 1220 80 1220 120
+             Z
+             M 900 300
+             Q 880 340 900 380
+             Q 920 420 960 430
+             Q 1000 420 1020 380
+             Q 1040 340 1020 300
+             Q 1000 260 960 260
+             Q 920 260 900 300
+             Z"/>
   </g>
   <defs>
-    <filter id="neon" x="400" y="80" width="800" height="400" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="3.5"/>
+    <filter id="neon" x="700" y="60" width="600" height="420" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="4"/>
     </filter>
   </defs>
 </svg>
