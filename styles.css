@@ -48,9 +48,9 @@ a { color: inherit; }
 }
 .banner {
   width: 100%;
-  height: 28px;
-  object-fit: cover;
-  object-position: 18% center;
+  height: 64px;
+  object-fit: contain;
+  object-position: left center;
   filter: drop-shadow(0 0 6px var(--glow)) drop-shadow(0 0 14px rgba(57,255,20,0.2));
 }
 .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
