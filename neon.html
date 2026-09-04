@@ -3,9 +3,295 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ciuperman — animație neon desenată în SVG.">
   <title>Ciuperman — Neon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --moss:#39ff14; --glow:rgba(57,255,20,.5); --ink:#9ad89a; --muted:#3f6b3f; }
+    * { box-sizing:border-box; }
+    html,body { margin:0; min-height:100%; background:#000; color:var(--ink); font-family:"IBM Plex Sans",system-ui,sans-serif; }
+    .wrap { min-height:100dvh; display:flex; flex-direction:column; align-items:center; }
+    header { width:min(920px,100%); padding:14px 16px 8px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    a { color:var(--moss); text-decoration:none; font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase; }
+    a:hover { text-shadow:0 0 10px var(--glow); }
+    h1 { margin:0; font-size:14px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--moss); text-shadow:0 0 12px var(--glow); }
+    .stage { position:relative; width:min(420px,100vw); aspect-ratio:5/8; background:#000; overflow:hidden; }
+    .stage svg, .stage canvas { position:absolute; inset:0; width:100%; height:100%; }
+    .stage canvas { pointer-events:none; }
+    .pose { opacity:0; transition:opacity .45s ease; filter:drop-shadow(0 0 6px rgba(57,255,20,.45)) drop-shadow(0 0 18px rgba(57,255,20,.25)); }
+    .pose.is-on { opacity:1; }
+    .line { fill:none; stroke:#39ff14; stroke-width:2.15; stroke-linecap:round; stroke-linejoin:round; }
+    .fill { fill:#000; stroke:#39ff14; stroke-width:2.15; stroke-linecap:round; stroke-linejoin:round; }
+    .soft { stroke-width:1.6; }
+    .eye { fill:#eaffea; stroke:none; }
+    .core { fill:#39ff14; stroke:none; opacity:.85; }
+    .pulse { transform-origin:200px 268px; animation:pulse 1.6s ease-in-out infinite; }
+    .cape-idle { transform-origin:200px 210px; animation:cape 3.4s ease-in-out infinite; }
+    .charge .pulse { animation-duration:.7s; }
+    @keyframes pulse { 0%,100%{transform:scale(1);opacity:.85} 50%{transform:scale(1.08);opacity:1} }
+    @keyframes cape { 0%,100%{transform:rotate(0)} 50%{transform:rotate(1.4deg) translateX(2px)} }
+    .hud { width:min(420px,100%); padding:10px 16px 22px; display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; justify-content:space-between; color:var(--muted); font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.06em; }
+    button { background:transparent; border:1px solid #163316; color:var(--moss); border-radius:999px; padding:7px 12px; font-family:inherit; font-size:11px; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
+    button:hover { box-shadow:0 0 12px var(--glow); }
+    .pose-name { color:var(--moss); }
+  </style>
 </head>
 <body>
-<p>loading real file via follow-up</p>
+  <div class="wrap">
+    <header>
+      <a href="./">← Registru</a>
+      <h1>Ciuperman neon</h1>
+      <span></span>
+    </header>
+    <div class="stage" id="stage">
+      <svg class="pose is-on" id="p-idle" viewBox="0 0 400 640" aria-hidden="true">
+        <g>
+          <path class="fill cape-idle" d="M132,208 C78,268 62,380 88,518 C104,568 150,552 186,470 C214,552 268,574 318,508 C348,400 332,278 268,208 C248,196 152,196 132,208 Z"/>
+          <path class="fill" d="M168,186 C148,196 128,214 118,246 C108,286 112,330 128,372 C122,410 118,456 128,508 C136,548 148,582 168,602 C178,610 196,608 204,596 C210,608 226,614 240,604 C262,584 276,536 278,492 C286,444 280,392 270,360 C286,322 292,274 278,236 C266,208 244,190 222,182 C214,156 206,132 200,108 C188,132 180,158 168,186 Z"/>
+          <path class="fill" d="M154,118 C148,86 168,58 200,48 C236,58 256,88 248,122 C262,138 266,162 248,178 C236,188 164,188 152,178 C136,164 140,138 154,118 Z"/>
+          <path class="line soft" d="M164,176 C186,192 214,192 236,176"/>
+          <circle class="line" cx="200" cy="186" r="7"/>
+          <path class="line soft" d="M150,250 C168,238 186,232 200,232 C216,232 234,238 252,252"/>
+          <path class="line soft" d="M158,292 C176,284 200,282 242,294"/>
+          <path class="line soft" d="M164,324 C184,316 216,316 236,326"/>
+          <path class="line soft" d="M200,236 L200,338"/>
+          <path class="line" d="M146,352 C176,344 224,344 256,354"/>
+          <path class="line" d="M150,368 C178,360 222,360 252,370"/>
+          <circle class="line" cx="200" cy="360" r="9"/>
+          <g class="pulse">
+            <path class="line" d="M178,262 C186,246 214,246 222,262 C214,270 186,270 178,262 Z"/>
+            <path class="line" d="M200,268 L200,292"/>
+            <circle class="line" cx="200" cy="268" r="16"/>
+          </g>
+          <path class="line" d="M118,246 C96,268 90,312 108,338 C122,328 132,312 138,292"/>
+          <path class="line" d="M278,236 C304,258 310,304 292,338 C276,328 266,310 262,292"/>
+          <path class="line" d="M128,508 C122,528 126,548 140,558 C152,566 166,560 170,548"/>
+          <path class="line" d="M278,492 C286,518 280,548 262,560 C248,568 232,560 230,546"/>
+          <path class="line" d="M140,602 C152,596 176,594 188,604"/>
+          <path class="line" d="M230,604 C244,594 268,596 278,606"/>
+          <path class="line" d="M148,610 L196,610"/>
+          <path class="line" d="M226,612 L276,612"/>
+          <path class="line soft" d="M176,128 C184,122 196,120 200,128 C204,120 216,122 224,128"/>
+          <path class="line soft" d="M186,150 C196,156 206,156 216,150"/>
+        </g>
+        <ellipse class="eye" cx="182" cy="126" rx="8" ry="4.5"/>
+        <ellipse class="eye" cx="218" cy="126" rx="8" ry="4.5"/>
+      </svg>
+      <svg class="pose" id="p-charge" viewBox="0 0 400 640" aria-hidden="true">
+        <g>
+          <path class="fill" d="M128,210 C72,280 58,400 90,524 C110,576 168,556 196,468 C230,560 292,582 330,508 C356,400 338,276 270,208 C248,196 150,196 128,210 Z"/>
+          <path class="fill" d="M170,186 C148,198 130,218 122,250 C112,292 116,334 132,372 C126,412 122,458 134,510 C144,550 158,584 178,602 C190,610 206,608 214,596 C220,608 236,614 250,604 C270,586 282,540 284,496 C290,446 286,394 274,360 C290,322 296,276 282,238 C270,210 246,190 224,182 C216,156 208,132 200,106 C188,132 180,158 170,186 Z"/>
+          <path class="fill" d="M154,118 C148,86 168,58 200,48 C236,58 256,88 248,122 C262,138 266,162 248,178 C236,188 164,188 152,178 C136,164 140,138 154,118 Z"/>
+          <path class="line soft" d="M164,176 C186,192 214,192 236,176"/>
+          <circle class="line" cx="200" cy="186" r="7"/>
+          <path class="line soft" d="M150,250 C168,238 186,232 200,232 C216,232 234,238 252,252"/>
+          <path class="line soft" d="M160,294 C180,286 200,284 240,296"/>
+          <path class="line soft" d="M166,326 C186,318 216,318 234,328"/>
+          <path class="line soft" d="M200,236 L200,338"/>
+          <path class="line" d="M146,352 C176,344 224,344 256,354"/>
+          <circle class="line" cx="200" cy="360" r="9"/>
+          <g class="pulse">
+            <circle class="line" cx="200" cy="268" r="18"/>
+            <path class="line" d="M176,262 C186,244 214,244 224,262 C214,272 186,272 176,262 Z"/>
+            <path class="line" d="M200,268 L200,296"/>
+          </g>
+          <path class="fill" d="M128,250 C108,230 128,206 154,214 C176,220 188,240 186,262 C184,278 170,292 154,294 C138,296 126,280 128,262 Z"/>
+          <path class="line" d="M278,238 C306,262 312,308 294,340 C278,330 268,312 264,294"/>
+          <path class="line" d="M134,510 C128,530 132,550 146,560 C158,568 172,562 176,550"/>
+          <path class="line" d="M284,496 C292,522 286,552 268,564 C254,572 238,564 236,550"/>
+          <path class="line" d="M148,610 L200,610"/>
+          <path class="line" d="M232,612 L280,612"/>
+          <path class="line soft" d="M176,128 C184,122 196,120 200,128 C204,120 216,122 224,128"/>
+          <path class="line soft" d="M186,150 C196,156 206,156 216,150"/>
+        </g>
+        <ellipse class="eye" cx="182" cy="126" rx="8" ry="4.5"/>
+        <ellipse class="eye" cx="218" cy="126" rx="8" ry="4.5"/>
+        <circle class="core" cx="200" cy="268" r="6"/>
+      </svg>
+      <svg class="pose" id="p-guard" viewBox="0 0 400 640" aria-hidden="true">
+        <g>
+          <path class="fill" d="M108,214 C48,300 40,430 86,530 C112,580 170,560 198,470 C236,575 310,590 348,500 C372,390 350,270 278,206 C252,192 140,194 108,214 Z"/>
+          <path class="fill" d="M156,188 C132,206 118,236 114,270 C108,314 118,352 136,382 C118,430 104,486 118,540 C128,576 150,604 178,614 C194,620 210,612 216,598 C226,614 246,622 266,612 C294,596 308,546 310,500 C318,448 308,396 292,364 C312,328 318,280 304,242 C290,210 262,188 232,182 C220,150 210,122 200,96 C186,122 174,154 156,188 Z"/>
+          <path class="fill" d="M148,120 C142,86 166,54 200,44 C238,54 260,88 252,124 C268,140 270,166 250,180 C236,190 160,190 148,180 C130,164 134,138 148,120 Z"/>
+          <path class="line soft" d="M160,176 C184,194 216,194 240,176"/>
+          <circle class="line" cx="200" cy="184" r="7"/>
+          <path class="line soft" d="M140,258 C166,240 188,234 200,234 C216,234 238,242 260,260"/>
+          <path class="line soft" d="M154,300 C176,290 200,288 246,302"/>
+          <path class="line soft" d="M200,238 L200,346"/>
+          <path class="line" d="M140,362 C176,352 228,352 262,364"/>
+          <circle class="line" cx="200" cy="362" r="9"/>
+          <g class="pulse">
+            <circle class="line" cx="200" cy="268" r="17"/>
+            <path class="line" d="M178,262 C186,246 214,246 222,262 C214,270 186,270 178,262 Z"/>
+            <path class="line" d="M200,268 L200,294"/>
+          </g>
+          <path class="fill" d="M96,250 C70,238 74,198 108,196 C138,196 154,222 146,250 C140,274 116,286 96,274 C86,266 90,254 96,250 Z"/>
+          <path class="fill" d="M304,248 C330,236 336,198 304,194 C274,192 256,220 264,248 C270,272 292,286 310,272 C320,264 314,254 304,248 Z"/>
+          <path class="line" d="M118,540 C110,562 118,586 140,594 C158,602 176,592 180,576"/>
+          <path class="line" d="M310,500 C320,530 312,568 288,582 C270,592 250,582 248,564"/>
+          <path class="line" d="M140,614 L188,614"/>
+          <path class="line" d="M248,614 L300,614"/>
+          <path class="line soft" d="M174,128 C184,120 196,118 200,128 C204,118 216,120 226,128"/>
+          <path class="line soft" d="M186,150 C196,157 206,157 216,150"/>
+        </g>
+        <ellipse class="eye" cx="182" cy="124" rx="8" ry="5"/>
+        <ellipse class="eye" cx="218" cy="124" rx="8" ry="5"/>
+        <circle class="core" cx="200" cy="268" r="6"/>
+      </svg>
+      <svg class="pose" id="p-kick" viewBox="0 0 400 640" aria-hidden="true">
+        <g>
+          <path class="fill" d="M88,220 C40,300 70,400 140,430 C100,360 120,300 150,270 C90,250 70,200 120,180 C160,164 190,200 200,230 C220,170 290,160 340,210 C300,180 240,196 220,230 C290,250 340,210 368,160 C340,240 300,320 240,350 C280,390 250,470 210,500 C250,470 310,500 340,550 C290,510 230,540 200,580 C170,620 150,560 168,500 C130,530 80,500 88,220 Z"/>
+          <path class="fill" d="M150,210 C128,230 122,268 132,300 C118,340 128,380 158,402 C140,430 170,490 206,508 C230,520 248,500 240,476 C268,486 300,454 312,422 C328,390 318,350 298,330 C322,308 328,268 312,236 C296,206 264,194 236,200 C224,168 214,140 206,114 C190,140 170,176 150,210 Z"/>
+          <path class="fill" d="M168,138 C160,104 180,76 210,68 C244,78 258,110 250,140 C264,154 264,178 246,190 C232,200 168,198 158,186 C144,172 150,150 168,138 Z"/>
+          <circle class="line" cx="210" cy="198" r="6"/>
+          <path class="line soft" d="M150,258 C170,242 192,236 210,238 C228,240 248,250 262,266"/>
+          <path class="line soft" d="M164,296 C184,286 210,286 244,300"/>
+          <path class="line" d="M168,360 C194,350 232,352 258,366"/>
+          <circle class="line" cx="210" cy="358" r="8"/>
+          <g class="pulse" style="transform-origin:210px 276px">
+            <circle class="line" cx="210" cy="276" r="15"/>
+            <path class="line" d="M190,272 C198,258 222,258 230,272 C222,280 198,280 190,272 Z"/>
+            <path class="line" d="M210,276 L210,298"/>
+          </g>
+          <circle class="line" cx="368" cy="156" r="16"/>
+          <path class="line" d="M206,508 C214,536 206,568 186,580 C170,588 152,578 150,562"/>
+          <path class="line" d="M168,602 L214,602"/>
+          <path class="line soft" d="M190,146 C198,138 208,136 212,146 C216,136 226,138 234,146"/>
+        </g>
+        <ellipse class="eye" cx="196" cy="140" rx="8" ry="5"/>
+        <ellipse class="eye" cx="228" cy="142" rx="8" ry="5"/>
+        <circle class="core" cx="368" cy="156" r="7"/>
+        <circle class="core" cx="210" cy="276" r="5"/>
+      </svg>
+      <svg class="pose" id="p-hero" viewBox="0 0 400 640" aria-hidden="true">
+        <g>
+          <path class="fill" d="M120,210 C56,300 48,430 96,530 C120,578 168,556 196,468 C230,568 300,586 344,508 C372,400 354,274 280,206 C254,192 148,194 120,210 Z"/>
+          <path class="fill" d="M168,186 C144,200 128,224 122,258 C112,300 118,342 136,376 C128,418 124,466 136,516 C146,556 160,588 180,604 C192,612 208,610 216,598 C222,610 238,616 252,606 C274,588 286,542 288,498 C296,448 290,396 276,362 C294,324 300,278 286,240 C274,212 250,190 228,182 C220,156 210,130 200,104 C188,130 178,158 168,186 Z"/>
+          <path class="fill" d="M154,118 C148,86 168,56 200,46 C236,56 256,88 248,122 C264,138 266,164 248,178 C236,188 164,188 152,178 C136,164 140,138 154,118 Z"/>
+          <path class="line soft" d="M164,176 C186,192 214,192 236,176"/>
+          <circle class="line" cx="200" cy="186" r="7"/>
+          <path class="line soft" d="M148,252 C168,238 186,232 200,232 C216,232 236,240 254,254"/>
+          <path class="line soft" d="M158,294 C178,286 200,284 242,296"/>
+          <path class="line soft" d="M200,236 L200,338"/>
+          <path class="line" d="M146,352 C176,344 224,344 256,354"/>
+          <circle class="line" cx="200" cy="360" r="9"/>
+          <g class="pulse">
+            <circle class="line" cx="200" cy="268" r="18"/>
+            <path class="line" d="M176,262 C186,244 214,244 224,262 C214,272 186,272 176,262 Z"/>
+            <path class="line" d="M200,268 L200,296"/>
+          </g>
+          <path class="line" d="M122,258 C70,250 36,238 18,230"/>
+          <path class="line" d="M286,240 C336,232 366,220 384,212"/>
+          <circle class="line" cx="16" cy="228" r="14"/>
+          <circle class="line" cx="386" cy="210" r="14"/>
+          <path class="line" d="M136,516 C128,538 134,560 150,568 C164,576 178,568 182,556"/>
+          <path class="line" d="M288,498 C296,526 290,556 272,568 C258,576 242,568 240,554"/>
+          <path class="line" d="M150,610 L198,610"/>
+          <path class="line" d="M236,612 L284,612"/>
+          <path class="line soft" d="M176,128 C184,122 196,120 200,128 C204,120 216,122 224,128"/>
+          <path class="line soft" d="M186,150 C196,156 206,156 216,150"/>
+        </g>
+        <ellipse class="eye" cx="182" cy="126" rx="8" ry="4.5"/>
+        <ellipse class="eye" cx="218" cy="126" rx="8" ry="4.5"/>
+        <circle class="core" cx="16" cy="228" r="6"/>
+        <circle class="core" cx="386" cy="210" r="6"/>
+        <circle class="core" cx="200" cy="268" r="6"/>
+      </svg>
+      <canvas id="fx" width="420" height="672"></canvas>
+    </div>
+    <div class="hud">
+      <span id="poseLabel" class="pose-name">IDLE</span>
+      <span id="clock">0.0s</span>
+      <button type="button" id="toggle">Pauză</button>
+    </div>
+  </div>
+  <script>
+    const order = [
+      { id: "p-idle", name: "IDLE", t: 0.0, particles: 0 },
+      { id: "p-charge", name: "CHARGE", t: 3.1, particles: 0.4 },
+      { id: "p-guard", name: "GUARD", t: 6.0, particles: 0.55 },
+      { id: "p-kick", name: "KICK", t: 8.6, particles: 1 },
+      { id: "p-hero", name: "ORBS", t: 11.4, particles: 0.8 }
+    ];
+    const DURATION = 15;
+    const poses = order.map((p) => document.getElementById(p.id));
+    const label = document.getElementById("poseLabel");
+    const clock = document.getElementById("clock");
+    const toggle = document.getElementById("toggle");
+    const canvas = document.getElementById("fx");
+    const ctx = canvas.getContext("2d");
+    const stage = document.getElementById("stage");
+    function resize() {
+      const r = stage.getBoundingClientRect();
+      canvas.width = Math.round(r.width * devicePixelRatio);
+      canvas.height = Math.round(r.height * devicePixelRatio);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+    const bits = [];
+    function burst(x, y, n, speed) {
+      for (let i = 0; i < n; i++) {
+        const a = Math.random() * Math.PI * 2;
+        const s = speed * (0.25 + Math.random());
+        bits.push({ x, y, vx: Math.cos(a)*s, vy: Math.sin(a)*s, life: 0.5+Math.random()*0.7, max: 1.2, r: 0.8+Math.random()*2 });
+      }
+    }
+    function show(nameId) {
+      poses.forEach((el) => el.classList.toggle("is-on", el.id === nameId));
+      stage.classList.toggle("charge", nameId !== "p-idle");
+    }
+    function at(t) {
+      const x = ((t % DURATION) + DURATION) % DURATION;
+      let cur = order[0];
+      for (const step of order) if (x >= step.t) cur = step;
+      return { cur, x };
+    }
+    let start = performance.now();
+    let paused = false;
+    let hold = 0;
+    let lastName = "";
+    toggle.addEventListener("click", () => {
+      paused = !paused;
+      if (paused) hold = (performance.now() - start) / 1000;
+      else start = performance.now() - hold * 1000;
+      toggle.textContent = paused ? "Play" : "Pauză";
+    });
+    function frame(now) {
+      const t = paused ? hold : (now - start) / 1000;
+      const { cur, x } = at(t);
+      if (cur.name !== lastName) {
+        show(cur.id);
+        lastName = cur.name;
+        const w = canvas.width, h = canvas.height;
+        if (cur.name === "CHARGE") burst(w*0.5, h*0.42, 18, 80);
+        if (cur.name === "KICK") burst(w*0.82, h*0.24, 28, 120);
+        if (cur.name === "ORBS") { burst(w*0.08, h*0.36, 16, 90); burst(w*0.92, h*0.34, 16, 90); }
+      }
+      label.textContent = cur.name;
+      clock.textContent = x.toFixed(1) + "s / 15s";
+      if (cur.particles > 0 && Math.random() < cur.particles * 0.12) {
+        burst(canvas.width*(0.35+Math.random()*0.3), canvas.height*(0.35+Math.random()*0.15), 2, 40);
+      }
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for (let i = bits.length-1; i >= 0; i--) {
+        const q = bits[i];
+        q.x += q.vx*0.016; q.y += q.vy*0.016; q.vy += 8*0.016; q.life -= 0.016;
+        if (q.life <= 0) { bits.splice(i,1); continue; }
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, q.life/q.max);
+        ctx.fillStyle = "#d8ffd0";
+        ctx.shadowColor = "#39ff14";
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.arc(q.x, q.y, q.r*devicePixelRatio, 0, Math.PI*2);
+        ctx.fill();
+        ctx.restore();
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  </script>
 </body>
 </html>
