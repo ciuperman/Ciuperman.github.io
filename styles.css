@@ -101,6 +101,9 @@ a { color: inherit; }
   overflow: hidden;
   background: var(--bg-2);
   align-self: flex-end;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 .lang button {
   background: transparent;
