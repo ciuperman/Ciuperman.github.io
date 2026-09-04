@@ -7,7 +7,7 @@
   <title>Ciuperman — Registru</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,10 +20,10 @@
           <p class="brand-sub" data-i18n="brandSub">Registrul de pădure</p>
         </div>
       </div>
-      <nav class="top-nav" aria-label="Secțiuni">
-        <a href="#registru" data-i18n="navLedger">Registru</a>
-        <a href="#despre" data-i18n="navAbout">Dosar</a>
-        <a href="#legaturi" data-i18n="navLinks">Legături</a>
+      <nav class="chips" aria-label="Secțiuni">
+        <a href="#registru" class="chip is-on" data-i18n="navLedger">Registru</a>
+        <a href="#despre" class="chip" data-i18n="navAbout">Dosar</a>
+        <a href="#legaturi" class="chip" data-i18n="navLinks">Legături</a>
       </nav>
       <div class="lang" role="group" aria-label="Limbă">
         <button type="button" data-lang="ro" class="is-on">RO</button>
@@ -31,21 +31,39 @@
       </div>
     </header>
 
-    <main class="sheet">
-      <section class="mast">
+    <main>
+      <section class="hero card">
         <p class="meta">
           <span data-i18n="metaWhere">Carpați</span>
           <span class="dot">·</span>
           <span>03.09.2026</span>
           <span class="dot">·</span>
-          <span data-i18n="metaOpen">deschis</span>
+          <span data-i18n="saved">salvat pe acest dispozitiv</span>
         </p>
         <h1>Ciuperman</h1>
         <p class="tagline" data-i18n="tagline">We are the Champignions, my friend!</p>
         <p class="lede" data-i18n="lede">Un personaj din iarbă și un caiet public pentru povești scurte: ciuperci, vreme, poteci. Fără magazin. Fără slogan de agenție.</p>
       </section>
 
-      <figure class="plate">
+      <section class="kpis" aria-label="Stare">
+        <article class="kpi card">
+          <p class="kpi-label" data-i18n="r1t">Personajul</p>
+          <p class="kpi-value st-live" data-i18n="stLive">viu</p>
+          <p class="kpi-hint" data-i18n="kpi1">om-ciupercă în iarbă</p>
+        </article>
+        <article class="kpi card">
+          <p class="kpi-label" data-i18n="r2t">Pădurea</p>
+          <p class="kpi-value" data-i18n="stHold">în lucru</p>
+          <p class="kpi-hint" data-i18n="kpi2">sigiliu vizual</p>
+        </article>
+        <article class="kpi card">
+          <p class="kpi-label" data-i18n="r3t">Filmele</p>
+          <p class="kpi-value st-wait" data-i18n="stWait">așteaptă</p>
+          <p class="kpi-hint" data-i18n="kpi3">canal real, nu generic</p>
+        </article>
+      </section>
+
+      <figure class="plate card">
         <img src="Ciuperman.PNG" width="1792" height="1024" alt="Pleurotus — studiu de ciuperci stridie">
         <figcaption>
           <span>PLATE 01</span>
@@ -53,8 +71,8 @@
         </figcaption>
       </figure>
 
-      <section id="registru" class="ledger">
-        <div class="ledger-head">
+      <section id="registru" class="card block">
+        <div class="block-head">
           <h2 data-i18n="ledgerTitle">Registru</h2>
           <p data-i18n="ledgerHint">Trei rânduri active. Restul se adaugă când există material, nu înainte.</p>
         </div>
@@ -65,7 +83,7 @@
               <h3 data-i18n="r1t">Personajul</h3>
               <p data-i18n="r1d">Om-ciupercă în iarba din Carpați. Cap ras, barbă scurtă, emblemă. Nu este un supererou de oraș.</p>
             </div>
-            <span class="st st-live" data-i18n="stLive">viu</span>
+            <span class="stamp st-live" data-i18n="stLive">viu</span>
           </li>
           <li>
             <span class="idx">02</span>
@@ -73,7 +91,7 @@
               <h3 data-i18n="r2t">Pădurea</h3>
               <p data-i18n="r2d">Desenul de pe pagină rămâne sigiliul vizual până există un portret oficial.</p>
             </div>
-            <span class="st" data-i18n="stHold">în lucru</span>
+            <span class="stamp" data-i18n="stHold">în lucru</span>
           </li>
           <li>
             <span class="idx">03</span>
@@ -81,16 +99,16 @@
               <h3 data-i18n="r3t">Filmele</h3>
               <p data-i18n="r3d">Poveștile lungi stau pe video. Canalul se leagă aici când adresa e reală, nu pagina generică YouTube.</p>
             </div>
-            <span class="st st-wait" data-i18n="stWait">așteaptă</span>
+            <span class="stamp st-wait" data-i18n="stWait">așteaptă</span>
           </li>
         </ol>
       </section>
 
-      <section id="despre" class="dossier">
-        <div class="dossier-head">
+      <section id="despre" class="card block">
+        <div class="block-head">
           <h2 data-i18n="aboutTitle">Dosar</h2>
         </div>
-        <div class="dossier-grid">
+        <div class="dossier">
           <p class="pull" data-i18n="aboutPull">Nu este o firmă. Este un nume sub care se adună desene, filme și note din zonă de munte.</p>
           <div class="notes">
             <p data-i18n="about1">Tonul e serios față de natură și lejer față de sine. Site-ul ține cadrul; poveștile trăiesc în iarbă și pe ecran.</p>
@@ -99,9 +117,9 @@
         </div>
       </section>
 
-      <section id="legaturi" class="links">
+      <section id="legaturi" class="card block">
         <h2 data-i18n="linksTitle">Legături</h2>
-        <ul>
+        <ul class="rows links">
           <li>
             <span class="idx">A</span>
             <span data-i18n="linkYt">YouTube</span>
