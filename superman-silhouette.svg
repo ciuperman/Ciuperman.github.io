@@ -1,42 +1,50 @@
 <svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="1600" height="900" fill="#000000"/>
-  <g filter="url(#neon)" stroke="#39ff14" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <!-- Single continuous outline: cape, head, body, legs, boots, arms, shield -->
-    <path d="M 1180 120
-             L 1180 300
-             Q 1180 360 1140 400
-             Q 1100 440 1040 460
-             Q 980 480 920 470
-             Q 860 460 820 430
-             Q 780 400 760 360
-             Q 740 320 740 280
-             L 740 120
-             Q 740 80 780 80
-             Q 820 80 820 120
-             L 820 200
-             Q 860 180 900 180
-             Q 940 180 980 200
-             L 980 120
-             Q 980 80 1020 80
-             Q 1060 80 1060 120
-             L 1060 260
-             Q 1100 240 1140 260
-             L 1140 120
-             Q 1140 80 1180 80
-             Q 1220 80 1220 120
+  <g filter="url(#neon)" stroke="#39ff14" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Single continuous neon outline: cape, head, body, legs, boots, arms, classic shield -->
+    <path d="M 300 150
+             Q 300 120 330 120
+             L 330 200
+             Q 360 180 390 180
+             Q 420 180 450 200
+             L 450 120
+             Q 480 120 480 150
+             L 480 280
+             Q 480 320 450 360
+             Q 420 400 390 430
+             Q 360 460 330 480
+             Q 300 500 270 480
+             Q 240 460 210 430
+             Q 180 400 150 360
+             Q 120 320 120 280
+             L 120 150
+             Q 120 120 150 120
+             L 150 200
+             Q 180 180 210 180
+             Q 240 180 270 200
+             L 270 120
+             Q 300 120 300 150
              Z
-             M 900 300
-             Q 880 340 900 380
-             Q 920 420 960 430
-             Q 1000 420 1020 380
-             Q 1040 340 1020 300
-             Q 1000 260 960 260
-             Q 920 260 900 300
+             M 300 300
+             Q 280 340 300 380
+             Q 320 420 360 430
+             Q 400 420 420 380
+             Q 440 340 420 300
+             Q 400 260 360 260
+             Q 320 260 300 300
+             Z
+             M 360 300
+             L 360 360
+             Q 360 380 380 380
+             Q 400 380 400 360
+             L 400 300
+             Q 400 280 380 280
+             Q 360 280 360 300
              Z"/>
   </g>
   <defs>
-    <filter id="neon" x="700" y="60" width="600" height="420" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="4"/>
+    <filter id="neon" x="100" y="100" width="400" height="420" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="3"/>
     </filter>
   </defs>
 </svg>
