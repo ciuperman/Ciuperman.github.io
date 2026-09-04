@@ -12,6 +12,7 @@
   --glow: rgba(57, 255, 20, 0.5);
   --sans: "IBM Plex Sans", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --hand: "Caveat", cursive;
 }
 
 * { box-sizing: border-box; }
@@ -58,6 +59,18 @@ a { color: inherit; }
   height: auto;
   margin: 8px auto 24px;
   filter: drop-shadow(0 0 8px var(--glow)) drop-shadow(0 0 20px rgba(57,255,20,0.3));
+}
+.champignons {
+  margin: -8px auto 28px;
+  max-width: 90%;
+  text-align: center;
+  font-family: var(--hand);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 6vw, 2.6rem);
+  line-height: 1.1;
+  color: var(--moss);
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 8px var(--glow), 0 0 18px rgba(57,255,20,0.35);
 }
 .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .logo {
