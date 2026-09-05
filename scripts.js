@@ -90,3 +90,94 @@ const saved = (() => {
   try { return localStorage.getItem("ciuperman-lang"); } catch (e) { return null; }
 })();
 applyLang(saved === "en" ? "en" : "ro");
+
+(function matrixRain() {
+  const canvas = document.getElementById("matrix-bg");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d", { alpha: false });
+  const glyphs = "01";
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let cols = [];
+  let fontSize = 16;
+  let raf = 0;
+  let last = 0;
+  let w = 0;
+  let h = 0;
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    fontSize = w < 700 ? 14 : 18;
+    const n = Math.ceil(w / fontSize);
+    cols = Array.from({ length: n }, () => Math.random() * (h / fontSize));
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, w, h);
+  }
+
+  function drawStatic() {
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, w, h);
+    ctx.font = "500 " + fontSize + "px \"IBM Plex Mono\", ui-monospace, monospace";
+    ctx.fillStyle = "rgba(57,255,20,0.22)";
+    for (let i = 0; i < cols.length; i++) {
+      for (let r = 0; r < 12; r++) {
+        ctx.fillText(glyphs[(Math.random() * 2) | 0], i * fontSize, Math.random() * h);
+      }
+    }
+  }
+
+  function frame(t) {
+    raf = requestAnimationFrame(frame);
+    if (t - last < 32) return;
+    last = t;
+
+    ctx.fillStyle = "rgba(0,0,0,0.08)";
+    ctx.fillRect(0, 0, w, h);
+    ctx.font = "500 " + fontSize + "px \"IBM Plex Mono\", ui-monospace, monospace";
+    ctx.textBaseline = "top";
+
+    for (let i = 0; i < cols.length; i++) {
+      const x = i * fontSize;
+      const y = cols[i] * fontSize;
+      const ch = glyphs[(Math.random() * 2) | 0];
+
+      ctx.shadowColor = "#39ff14";
+      ctx.shadowBlur = 10;
+      ctx.fillStyle = "#eaffea";
+      ctx.fillText(ch, x, y);
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "rgba(57,255,20,0.45)";
+      ctx.fillText(glyphs[(Math.random() * 2) | 0], x, y - fontSize);
+
+      if (y > h && Math.random() > 0.975) cols[i] = 0;
+      else cols[i] += 0.85 + Math.random() * 0.4;
+    }
+  }
+
+  resize();
+  window.addEventListener("resize", resize);
+
+  if (reduce) {
+    drawStatic();
+    return;
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      cancelAnimationFrame(raf);
+      raf = 0;
+    } else if (!raf) {
+      last = 0;
+      raf = requestAnimationFrame(frame);
+    }
+  });
+
+  raf = requestAnimationFrame(frame);
+})();
