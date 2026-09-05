@@ -90,3 +90,20 @@ const saved = (() => {
   try { return localStorage.getItem("ciuperman-lang"); } catch (e) { return null; }
 })();
 applyLang(saved === "en" ? "en" : "ro");
+
+(function liveSilhouette() {
+  const figure = document.querySelector(".superman");
+  if (!figure || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const moves = ["is-lean", "is-pulse", "is-nod"];
+  function clearMoves() {
+    figure.classList.remove("is-lean", "is-pulse", "is-nod");
+  }
+  function play() {
+    clearMoves();
+    const move = moves[Math.floor(Math.random() * moves.length)];
+    figure.classList.add(move);
+    window.setTimeout(clearMoves, 1200);
+    window.setTimeout(play, 2600 + Math.random() * 5200);
+  }
+  window.setTimeout(play, 1800 + Math.random() * 1600);
+})();
