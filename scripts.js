@@ -96,27 +96,14 @@ applyLang(saved === "en" ? "en" : "ro");
   if (!canvas) return;
 
   const ctx = canvas.getContext("2d", { alpha: false });
+  const glyphs = "01";
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const bit = () => (Math.random() < 0.5 ? "0" : "1");
-  let streams = [];
-  let fontSize = 22;
-  let colW = 26;
-  let trail = 14;
+  let cols = [];
+  let fontSize = 16;
   let raf = 0;
   let last = 0;
   let w = 0;
   let h = 0;
-
-  function makeStream(x) {
-    const cells = Array.from({ length: trail }, bit);
-    return {
-      x,
-      y: Math.random() * -40,
-      speed: 0.18 + Math.random() * 0.12,
-      cells,
-      step: 0
-    };
-  }
 
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -127,11 +114,9 @@ applyLang(saved === "en" ? "en" : "ro");
     canvas.style.width = w + "px";
     canvas.style.height = h + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    fontSize = w < 700 ? 20 : 24;
-    colW = Math.ceil(fontSize * 1.25);
-    trail = Math.max(10, Math.floor(h / fontSize * 0.45));
-    const n = Math.ceil(w / colW);
-    streams = Array.from({ length: n }, (_, i) => makeStream(i * colW));
+    fontSize = w < 700 ? 14 : 18;
+    const n = Math.ceil(w / fontSize);
+    cols = Array.from({ length: n }, () => Math.random() * (h / fontSize));
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, w, h);
   }
@@ -139,54 +124,40 @@ applyLang(saved === "en" ? "en" : "ro");
   function drawStatic() {
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, w, h);
-    ctx.font = "600 " + fontSize + "px \"IBM Plex Mono\", ui-monospace, monospace";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "top";
-    ctx.fillStyle = "rgba(57,255,20,0.28)";
-    streams.forEach((s) => {
-      for (let r = 0; r < 8; r++) {
-        ctx.fillText(bit(), s.x + colW / 2, Math.random() * h);
+    ctx.font = "500 " + fontSize + "px \"IBM Plex Mono\", ui-monospace, monospace";
+    ctx.fillStyle = "rgba(57,255,20,0.22)";
+    for (let i = 0; i < cols.length; i++) {
+      for (let r = 0; r < 12; r++) {
+        ctx.fillText(glyphs[(Math.random() * 2) | 0], i * fontSize, Math.random() * h);
       }
-    });
+    }
   }
 
   function frame(t) {
     raf = requestAnimationFrame(frame);
-    if (t - last < 48) return;
+    if (t - last < 32) return;
     last = t;
 
-    ctx.fillStyle = "rgba(0,0,0,0.12)";
+    ctx.fillStyle = "rgba(0,0,0,0.08)";
     ctx.fillRect(0, 0, w, h);
-    ctx.font = "600 " + fontSize + "px \"IBM Plex Mono\", ui-monospace, monospace";
-    ctx.textAlign = "center";
+    ctx.font = "500 " + fontSize + "px \"IBM Plex Mono\", ui-monospace, monospace";
     ctx.textBaseline = "top";
-    ctx.shadowBlur = 0;
 
-    for (const s of streams) {
-      s.y += s.speed;
-      s.step += s.speed;
-      if (s.step >= 1) {
-        s.step -= 1;
-        s.cells.pop();
-        s.cells.unshift(bit());
-      }
+    for (let i = 0; i < cols.length; i++) {
+      const x = i * fontSize;
+      const y = cols[i] * fontSize;
+      const ch = glyphs[(Math.random() * 2) | 0];
 
-      const headY = s.y * fontSize;
-      for (let k = 0; k < s.cells.length; k++) {
-        const y = headY - k * fontSize;
-        if (y < -fontSize || y > h) continue;
-        if (k === 0) ctx.fillStyle = "#f4fff4";
-        else if (k === 1) ctx.fillStyle = "#9dff9d";
-        else if (k < 5) ctx.fillStyle = "rgba(57,255,20,0.85)";
-        else ctx.fillStyle = "rgba(57,255,20," + Math.max(0.18, 0.7 - k * 0.04) + ")";
-        ctx.fillText(s.cells[k], s.x + colW / 2, y);
-      }
+      ctx.shadowColor = "#39ff14";
+      ctx.shadowBlur = 10;
+      ctx.fillStyle = "#eaffea";
+      ctx.fillText(ch, x, y);
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "rgba(57,255,20,0.45)";
+      ctx.fillText(glyphs[(Math.random() * 2) | 0], x, y - fontSize);
 
-      if (headY - s.cells.length * fontSize > h && Math.random() > 0.96) {
-        s.y = Math.random() * -18;
-        s.speed = 0.18 + Math.random() * 0.12;
-        s.cells = Array.from({ length: trail }, bit);
-      }
+      if (y > h && Math.random() > 0.975) cols[i] = 0;
+      else cols[i] += 0.85 + Math.random() * 0.4;
     }
   }
 
