@@ -61,10 +61,59 @@ a { color: inherit; }
   display: block;
   border: 0;
   background: transparent;
+  transform-origin: 50% 94%;
   filter: drop-shadow(0 0 8px var(--glow)) drop-shadow(0 0 20px rgba(57,255,20,0.3));
+  animation: ciuper-idle 5.2s ease-in-out infinite;
 }
 object.superman {
   min-height: 480px;
+}
+.superman.is-lean {
+  animation: ciuper-lean 1.15s ease-in-out;
+}
+.superman.is-pulse {
+  animation: ciuper-pulse 0.95s ease-in-out;
+}
+.superman.is-nod {
+  animation: ciuper-nod 0.85s ease-in-out;
+}
+@keyframes ciuper-idle {
+  0%, 100% {
+    transform: rotate(-1.15deg) translateY(0) scale(1);
+    filter: drop-shadow(0 0 8px var(--glow)) drop-shadow(0 0 18px rgba(57,255,20,0.28));
+  }
+  50% {
+    transform: rotate(1.35deg) translateY(-6px) scale(1.015);
+    filter: drop-shadow(0 0 14px var(--glow)) drop-shadow(0 0 28px rgba(57,255,20,0.45));
+  }
+}
+@keyframes ciuper-lean {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  40% { transform: rotate(-7deg) translate(6px, -4px); }
+  70% { transform: rotate(4deg) translate(-3px, -2px); }
+}
+@keyframes ciuper-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 8px var(--glow)) drop-shadow(0 0 18px rgba(57,255,20,0.3));
+  }
+  50% {
+    transform: scale(1.045);
+    filter: drop-shadow(0 0 18px var(--glow)) drop-shadow(0 0 36px rgba(57,255,20,0.55));
+  }
+}
+@keyframes ciuper-nod {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  35% { transform: rotate(3deg) translateY(8px); }
+  60% { transform: rotate(-2deg) translateY(-3px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .superman,
+  .superman.is-lean,
+  .superman.is-pulse,
+  .superman.is-nod {
+    animation: none !important;
+  }
 }
 .champignons {
   margin: -8px auto 28px;
