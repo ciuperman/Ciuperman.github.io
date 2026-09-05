@@ -1,1 +1,14 @@
-PLACEHOLDER
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 664 1281" width="664" height="1281" role="img" aria-label="Ciuperman silueta neon">
+  <defs>
+    <filter id="neon" x="-18%" y="-12%" width="136%" height="124%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <image href="ciuperman-silhouette.png" width="664" height="1281" preserveAspectRatio="xMidYMid meet"/>
+</svg>
