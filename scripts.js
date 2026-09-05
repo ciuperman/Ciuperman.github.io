@@ -135,10 +135,10 @@ applyLang(saved === "en" ? "en" : "ro");
 
   function frame(t) {
     raf = requestAnimationFrame(frame);
-    if (t - last < 32) return;
+    if (t - last < 50) return;
     last = t;
 
-    ctx.fillStyle = "rgba(0,0,0,0.08)";
+    ctx.fillStyle = "rgba(0,0,0,0.045)";
     ctx.fillRect(0, 0, w, h);
     ctx.font = "500 " + fontSize + "px \"IBM Plex Mono\", ui-monospace, monospace";
     ctx.textBaseline = "top";
@@ -156,8 +156,8 @@ applyLang(saved === "en" ? "en" : "ro");
       ctx.fillStyle = "rgba(57,255,20,0.45)";
       ctx.fillText(glyphs[(Math.random() * 2) | 0], x, y - fontSize);
 
-      if (y > h && Math.random() > 0.975) cols[i] = 0;
-      else cols[i] += 0.85 + Math.random() * 0.4;
+      if (y > h && Math.random() > 0.988) cols[i] = 0;
+      else cols[i] += 0.28 + Math.random() * 0.16;
     }
   }
 
