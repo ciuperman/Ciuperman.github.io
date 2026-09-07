@@ -7,7 +7,6 @@ const copy = {
     metaWhere: "Carpați",
     saved: "salvat pe acest dispozitiv",
     tagline: "We are the Champignions, my friend!",
-    byline: "Han Adrian",
     lede: "Un personaj din iarbă și un caiet public pentru povești scurte: ciuperci, vreme, poteci. Fără magazin. Fără slogan de agenție.",
     plateCap: "Pleurotus · studiu",
     ledgerTitle: "Registru",
@@ -32,7 +31,7 @@ const copy = {
     linkYt: "YouTube",
     linkYtNote: "se completează cu URL-ul real",
     linkFbNote: "idem — fără pagină inventată",
-    colophon: "Caiet deschis, 2026 · Han Adrian. Rândurile se scriu rar și pe bune."
+    colophon: "Caiet deschis, 2026. Rândurile se scriu rar și pe bune."
   },
   en: {
     brandSub: "Forest ledger",
@@ -42,7 +41,6 @@ const copy = {
     metaWhere: "Carpathians",
     saved: "saved on this device",
     tagline: "We are the Champignions, my friend!",
-    byline: "Han Adrian",
     lede: "A grass-level character and a public notebook for short forest stories: mushrooms, weather, paths. Not a shop. Not an agency line.",
     plateCap: "Pleurotus · study",
     ledgerTitle: "Ledger",
@@ -67,7 +65,7 @@ const copy = {
     linkYt: "YouTube",
     linkYtNote: "filled when the real URL exists",
     linkFbNote: "same — no invented page",
-    colophon: "Open notebook, 2026 · Han Adrian. Rows are written rarely and for real."
+    colophon: "Open notebook, 2026. Rows are written rarely and for real."
   }
 };
 
