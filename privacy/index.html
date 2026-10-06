@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Privacy Policy for Ciuperhan Poster, a personal tool operated by Han Adrian to publish his own videos to his own TikTok account.">
+  <title>Privacy Policy — Ciuperhan Poster</title>
+  <style>
+    :root {
+      --bg: #000000; --bg-2: #050505; --card: #050505; --line: #0f1f0f;
+      --ink: #9ad89a; --muted: #3f6b3f; --steel: #6fc06f; --moss: #39ff14;
+      --glow: rgba(57, 255, 20, 0.5);
+      --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: var(--sans); font-size: 16px; line-height: 1.6;
+      text-shadow: 0 0 5px rgba(57, 255, 20, 0.16);
+    }
+    a { color: var(--moss); }
+    .app { max-width: 760px; margin: 0 auto; padding: 20px 18px 48px; }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding-bottom: 14px; margin-bottom: 18px; border-bottom: 1px solid var(--line);
+    }
+    .home {
+      font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em; text-decoration: none;
+      color: var(--moss); text-shadow: 0 0 8px var(--glow);
+    }
+    .tag {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px;
+    }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px 20px 14px; }
+    .meta {
+      margin: 0 0 10px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    h1 {
+      margin: 0 0 14px; font-weight: 500; font-size: clamp(1.9rem, 6vw, 2.6rem); line-height: 1.1;
+      letter-spacing: -0.02em; color: var(--moss); text-shadow: 0 0 14px var(--glow), 0 0 30px rgba(57, 255, 20, 0.22);
+    }
+    h2 { margin: 26px 0 6px; font-size: 1.12rem; font-weight: 500; color: var(--steel); }
+    p, li { margin: 8px 0; }
+    ul { padding-left: 22px; }
+    code { font-family: var(--mono); font-size: 0.92em; }
+    .ro { margin-top: 28px; padding-top: 6px; border-top: 1px solid var(--line); }
+    .footer {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px; margin-top: 22px;
+      font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--muted);
+    }
+    .footer a { color: var(--steel); }
+    .footer a[aria-current="page"] { color: var(--moss); text-decoration: none; }
+    @media (min-width: 760px) { .app { padding: 28px 24px 64px; } .card { padding: 28px 28px 18px; } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="home" href="/">← ciuperman.ro</a>
+      <span class="tag">Ciuperhan Poster</span>
+    </header>
+
+    <main class="card">
+      <p class="meta">Effective date: October 7, 2026</p>
+      <h1>Privacy Policy</h1>
+
+      <p>This Privacy Policy explains what data <strong>Ciuperhan Poster</strong> (the "App") handles and why. The App is a personal tool operated by <strong>Han Adrian</strong>, an individual developer based in Romania (the "Operator"), who is the data controller. The App is used solely by the Operator to publish his own videos to his own TikTok account, <strong>@ciuperhan</strong>, through TikTok Login Kit and the TikTok Content Posting API. It is not offered to the public.</p>
+
+      <h2>1. Data the App receives from TikTok</h2>
+      <p>When the Operator authorizes the App on TikTok, the App receives only what the requested scopes (<code>user.info.basic</code>, <code>video.upload</code>, <code>video.publish</code>) allow:</p>
+      <ul>
+        <li><strong>OAuth tokens</strong>: a short-lived authorization code, an access token and a refresh token, used to act on the connected account.</li>
+        <li><strong>Basic profile information</strong>: the account's <code>open_id</code>, display name and avatar image URL, used only to confirm which account is connected.</li>
+        <li><strong>Posting information</strong> returned by the Content Posting API when a video is published (for example the posting options TikTok makes available for the account and the upload/publish status), used only to complete that post.</li>
+      </ul>
+      <p>The App does not request or access followers, likes, comments, messages, analytics, or any other TikTok data.</p>
+
+      <h2>2. Data the App sends to TikTok</h2>
+      <p>The App uploads the Operator's own video files to TikTok, together with the post details the Operator chooses (such as caption and privacy setting). Once uploaded, those videos are handled by TikTok under the <a href="https://www.tiktok.com/legal/privacy-policy">TikTok Privacy Policy</a>.</p>
+
+      <h2>3. How data is stored and used</h2>
+      <p>Tokens and basic profile information are stored only on the Operator's own computer, and are used only to post videos to the Operator's own TikTok account. The App has no server-side database. The <a href="/tiktok-callback/">OAuth redirect page</a> on this site only displays the authorization code in your browser; it does not send it anywhere or store it.</p>
+
+      <h2>4. No selling or sharing</h2>
+      <p>No data is sold, rented, shared with third parties, or used for advertising or profiling. Data leaves the Operator's computer only when it is sent to TikTok to perform the posting you authorized.</p>
+
+      <h2>5. Website, cookies and analytics</h2>
+      <p>The App itself uses no cookies, analytics or tracking. The ciuperman.ro website also contains no analytics or advertising scripts. For transparency:</p>
+      <ul>
+        <li>The site is hosted on GitHub Pages. GitHub may log technical data such as IP addresses when pages are requested; see the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>.</li>
+        <li>The ciuperman.ro home page loads web fonts from Google Fonts, which means your browser contacts Google's servers when you open that page. This page, the Terms page and the OAuth redirect page do not load any third-party resources.</li>
+        <li>The home page remembers your language choice (RO/EN) in your browser's local storage. This is not sent anywhere.</li>
+      </ul>
+
+      <h2>6. Retention</h2>
+      <ul>
+        <li>Authorization codes are used once and are not kept.</li>
+        <li>Access and refresh tokens are kept only while the App is connected and are deleted when access is revoked or the App is no longer used. TikTok also expires them on its own schedule.</li>
+        <li>Basic profile information is kept only as long as the tokens are kept.</li>
+        <li>Published videos stay on TikTok until they are deleted from the TikTok account.</li>
+      </ul>
+
+      <h2>7. How to revoke access</h2>
+      <p>You can disconnect the App at any time in the TikTok app: <strong>Profile → Menu (☰) → Settings and privacy → Security → Manage app permissions</strong>, then remove <em>Ciuperhan Poster</em>. See <a href="https://support.tiktok.com/en/account-and-privacy/account-privacy-settings/manage-third-party-app-permissions">TikTok's help page</a>. You can also contact the Operator (see below) to request that any stored tokens and profile data be deleted.</p>
+
+      <h2>8. Your rights under the GDPR</h2>
+      <p>Because the Operator is based in Romania (EU), the General Data Protection Regulation (GDPR) applies. The legal basis for processing is your authorization (consent) given on TikTok's consent screen, which you can withdraw at any time by revoking access. You have the right to:</p>
+      <ul>
+        <li>access the personal data held about you and receive a copy of it;</li>
+        <li>have it corrected or deleted;</li>
+        <li>restrict or object to its processing;</li>
+        <li>data portability;</li>
+        <li>withdraw consent at any time, without affecting earlier processing;</li>
+        <li>lodge a complaint with the Romanian data protection authority, ANSPDCP (<a href="https://www.dataprotection.ro/">dataprotection.ro</a>), or with the authority in your EU country.</li>
+      </ul>
+      <p>To exercise these rights, contact the Operator. Requests will be answered within one month.</p>
+
+      <h2>9. Children</h2>
+      <p>The App is not directed at children and is not used to collect data from anyone other than the Operator.</p>
+
+      <h2>10. Changes</h2>
+      <p>If this policy changes, the updated version will be published on this page with a new effective date.</p>
+
+      <h2>11. Contact</h2>
+      <p>Han Adrian, via <a href="https://www.ciuperman.ro/">ciuperman.ro</a> or by email at <a href="mailto:adi.han@gmail.com">adi.han@gmail.com</a>.</p>
+
+      <section class="ro" lang="ro">
+        <h2>Rezumat în limba română</h2>
+        <p>Ciuperhan Poster este un instrument personal al lui Han Adrian (România), folosit doar pentru a publica propriile clipuri pe propriul cont TikTok, @ciuperhan. Aplicația primește de la TikTok doar tokenurile OAuth și informațiile de bază ale profilului (open_id, nume afișat, avatar), păstrate exclusiv pe calculatorul operatorului și folosite doar pentru postare. Datele nu sunt vândute și nu sunt partajate. Accesul poate fi revocat oricând din aplicația TikTok (Setări și confidențialitate → Securitate → Gestionează permisiunile aplicațiilor). Aveți drepturile prevăzute de GDPR și puteți depune plângere la ANSPDCP. Varianta în engleză de mai sus este cea de referință.</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a href="/terms/">Terms of Service</a>
+      <span aria-hidden="true">·</span>
+      <a href="/privacy/" aria-current="page">Privacy Policy</a>
+      <span aria-hidden="true">·</span>
+      <a href="/">ciuperman.ro</a>
+    </footer>
+  </div>
+</body>
+</html>

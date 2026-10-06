@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <!-- No network requests from this page: CSP blocks everything except this page's own inline style and the inline script below.
+       If you edit the <script>, update its sha256 hash here (or the script will be blocked). -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-A/5FaOzqKHgbIDVqiI2aJOHLoZlgcSb6NcFZDRvw2hg='; base-uri 'none'; form-action 'none'">
+  <title>TikTok authorization — Ciuperhan Poster</title>
+  <style>
+    :root {
+      --bg: #000000; --bg-2: #050505; --card: #050505; --line: #0f1f0f;
+      --ink: #9ad89a; --muted: #3f6b3f; --steel: #6fc06f; --moss: #39ff14;
+      --glow: rgba(57, 255, 20, 0.5);
+      --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: var(--sans); font-size: 16px; line-height: 1.6;
+      text-shadow: 0 0 5px rgba(57, 255, 20, 0.16);
+    }
+    a { color: var(--moss); }
+    .app { max-width: 760px; margin: 0 auto; padding: 20px 18px 48px; }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding-bottom: 14px; margin-bottom: 18px; border-bottom: 1px solid var(--line);
+    }
+    .home {
+      font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em; text-decoration: none;
+      color: var(--moss); text-shadow: 0 0 8px var(--glow);
+    }
+    .tag {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px;
+    }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px 20px 14px; }
+    .meta {
+      margin: 0 0 10px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    h1 {
+      margin: 0 0 14px; font-weight: 500; font-size: clamp(1.9rem, 6vw, 2.6rem); line-height: 1.1;
+      letter-spacing: -0.02em; color: var(--moss); text-shadow: 0 0 14px var(--glow), 0 0 30px rgba(57, 255, 20, 0.22);
+    }
+    h2 { margin: 26px 0 6px; font-size: 1.12rem; font-weight: 500; color: var(--steel); }
+    p, li { margin: 8px 0; }
+    ul { padding-left: 22px; }
+    code { font-family: var(--mono); font-size: 0.92em; }
+    .ro { margin-top: 28px; padding-top: 6px; border-top: 1px solid var(--line); }
+    .footer {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px; margin-top: 22px;
+      font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--muted);
+    }
+    .footer a { color: var(--steel); }
+    .footer a[aria-current="page"] { color: var(--moss); text-decoration: none; }
+    @media (min-width: 760px) { .app { padding: 28px 24px 64px; } .card { padding: 28px 28px 18px; } }
+    .hidden { display: none; }
+    .lead { color: var(--steel); }
+    .codebox {
+      display: flex; align-items: stretch; gap: 8px; margin: 14px 0 6px;
+    }
+    .code {
+      flex: 1; min-width: 0; margin: 0; padding: 12px 14px;
+      font-family: var(--mono); font-size: 14px; line-height: 1.45; color: #eaffea;
+      background: #000; border: 1px solid rgba(57, 255, 20, 0.4); border-radius: 10px;
+      box-shadow: 0 0 10px rgba(57, 255, 20, 0.15) inset;
+      white-space: pre-wrap; word-break: break-all; user-select: all;
+    }
+    .copy {
+      flex: none; cursor: pointer; font-family: var(--mono); font-size: 13px; letter-spacing: 0.06em;
+      color: #000; background: var(--moss); border: 1px solid var(--moss); border-radius: 10px;
+      padding: 0 16px; box-shadow: 0 0 12px var(--glow);
+    }
+    .copy:focus-visible { outline: 2px solid #eaffea; outline-offset: 2px; }
+    .status { min-height: 1.4em; margin: 4px 0 10px; font-family: var(--mono); font-size: 12px; color: var(--steel); }
+    .note { color: var(--ink); }
+    .details { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+    .details dt { display: inline; }
+    .details dd { display: inline; margin: 0 0 0 4px; color: var(--steel); word-break: break-all; }
+    .details div { margin: 4px 0; }
+    .err h1 { color: #ff5f56; text-shadow: 0 0 14px rgba(255, 95, 86, 0.45); }
+    .errbox {
+      margin: 12px 0; padding: 12px 14px; border: 1px solid rgba(255, 95, 86, 0.45); border-radius: 10px;
+      font-family: var(--mono); font-size: 14px; color: #ffb3ae; white-space: pre-wrap; word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="home" href="/">← ciuperman.ro</a>
+      <span class="tag">Ciuperhan Poster</span>
+    </header>
+
+    <main class="card">
+      <section id="success" class="hidden" aria-live="polite">
+        <h1>TikTok connected</h1>
+        <p class="lead">Authorization code:</p>
+        <div class="codebox">
+          <pre class="code" id="code"></pre>
+          <button type="button" class="copy" id="copy">Copy</button>
+        </div>
+        <p class="status" id="copy-status" role="status"></p>
+        <p class="note">Paste this code back to Tiktok Bot within a few minutes; it expires quickly.</p>
+        <dl class="details">
+          <div id="state-row" class="hidden"><dt>state:</dt><dd id="state"></dd></div>
+          <div id="scopes-row" class="hidden"><dt>scopes:</dt><dd id="scopes"></dd></div>
+        </dl>
+      </section>
+
+      <section id="error" class="hidden err" aria-live="polite">
+        <h1>TikTok authorization failed</h1>
+        <p class="lead">TikTok returned an error:</p>
+        <div class="errbox"><strong id="error-code"></strong><span id="error-desc"></span></div>
+        <dl class="details">
+          <div id="error-state-row" class="hidden"><dt>state:</dt><dd id="error-state"></dd></div>
+        </dl>
+        <p>You can close this page and start the connection again.</p>
+      </section>
+
+      <section id="empty">
+        <h1>TikTok authorization</h1>
+        <p>This is the OAuth redirect page for <strong>Ciuperhan Poster</strong>. It shows the authorization code that TikTok returns after you approve the app. No authorization data was found in this page's address.</p>
+        <p class="details">Nothing on this page is sent to any server; it only reads the address bar in your browser.</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a href="/terms/">Terms of Service</a>
+      <span aria-hidden="true">·</span>
+      <a href="/privacy/">Privacy Policy</a>
+      <span aria-hidden="true">·</span>
+      <a href="/">ciuperman.ro</a>
+    </footer>
+  </div>
+  <script>
+(function () {
+  "use strict";
+  // Reads the OAuth result from the query string and shows it. No network requests, no storage.
+  var params = new URLSearchParams(window.location.search);
+  var code = params.get("code");
+  var state = params.get("state");
+  var error = params.get("error");
+  var errorDescription = params.get("error_description");
+  var scopes = params.get("scopes");
+
+  function el(id) { return document.getElementById(id); }
+  function show(id) { el(id).classList.remove("hidden"); }
+  function hide(id) { el(id).classList.add("hidden"); }
+  function setRow(rowId, valueId, value) {
+    if (value) { el(valueId).textContent = value; show(rowId); }
+  }
+
+  if (error) {
+    hide("empty");
+    el("error-code").textContent = error;
+    el("error-desc").textContent = errorDescription ? "\n" + errorDescription : "";
+    setRow("error-state-row", "error-state", state);
+    show("error");
+    return;
+  }
+
+  if (!code) { return; }
+
+  hide("empty");
+  el("code").textContent = code;
+  setRow("state-row", "state", state);
+  setRow("scopes-row", "scopes", scopes ? scopes.split(",").join(", ") : "");
+  show("success");
+
+  var status = el("copy-status");
+  var button = el("copy");
+
+  function done(ok) {
+    status.textContent = ok ? "Copied to clipboard." : "Copy failed: select the code and copy it manually.";
+    if (ok) {
+      button.textContent = "Copied";
+      setTimeout(function () { button.textContent = "Copy"; }, 2000);
+    }
+  }
+
+  function fallbackCopy() {
+    var range = document.createRange();
+    range.selectNodeContents(el("code"));
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    done(ok);
+  }
+
+  button.addEventListener("click", function () {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(code).then(function () { done(true); }, fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  });
+})();
+</script>
+</body>
+</html>
