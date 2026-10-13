@@ -1,0 +1,108 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ciuperhan Poster – Post to TikTok</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#111;color:#eee;max-width:720px;margin:auto;padding:20px}
+.card{background:#1d1d1d;border-radius:12px;padding:18px;margin:14px 0}
+button{background:#fe2c55;color:#fff;border:0;border-radius:8px;padding:12px 20px;font-size:16px;cursor:pointer}
+button:disabled{background:#555;cursor:not-allowed}
+label{display:block;margin:8px 0}.muted{color:#999;font-size:14px}.note{color:#ffcc66;font-size:14px}
+input[type=text],textarea,select{width:100%;padding:8px;background:#222;color:#eee;border:1px solid #444;border-radius:6px;box-sizing:border-box}
+video{max-width:260px;border-radius:8px;background:#000}
+#creator img{width:48px;height:48px;border-radius:50%;vertical-align:middle;margin-right:10px}
+.disabled{opacity:.45}
+a{color:#69c9ff}
+</style></head><body>
+<h1>Ciuperhan Poster</h1>
+<p class="muted">Post your own Ciuperman short films to TikTok. Built for creator @ciuperhan.</p>
+
+<div class="card" id="loginCard">
+ <button id="loginBtn">Login with TikTok</button>
+ <p class="muted">You will be asked to grant: basic profile info (user.info.basic), upload drafts (video.upload) and publish videos (video.publish).</p>
+</div>
+
+<div id="app" hidden>
+<div class="card" id="creator"><span class="muted">Posting to TikTok account:</span><br><img id="avatar" alt=""><b id="nick"></b> <span class="muted" id="uname"></span>
+ <p class="note" id="cantPost" hidden>This account cannot make more posts right now. Please try again later.</p></div>
+
+<div class="card"><label>Video <input type="file" id="file" accept="video/mp4,video/quicktime"></label>
+ <video id="preview" controls hidden></video><p class="note" id="durErr" hidden></p></div>
+
+<div class="card">
+ <label>Title / caption <textarea id="title" rows="3" maxlength="2200"></textarea></label>
+ <label>Who can view this video
+  <select id="privacy"><option value="" selected disabled>Select privacy…</option></select></label>
+ <p class="muted">Allow users to:</p>
+ <label id="lc"><input type="checkbox" id="comment"> Comment</label>
+ <label id="ld"><input type="checkbox" id="duet"> Duet</label>
+ <label id="ls"><input type="checkbox" id="stitch"> Stitch</label>
+</div>
+
+<div class="card">
+ <label><input type="checkbox" id="cc"> Disclose video content</label>
+ <p class="muted">Turn on to indicate that this video promotes yourself, a brand, product or service.</p>
+ <div id="ccOpts" hidden>
+  <label><input type="checkbox" id="yourBrand"> Your brand <span class="muted">– You are promoting yourself or your own business.</span></label>
+  <label id="lbc"><input type="checkbox" id="branded"> Branded content <span class="muted">– You are promoting another brand or a third party.</span></label>
+  <p class="note" id="ccLabel"></p>
+ </div>
+</div>
+
+<div class="card">
+ <p id="declaration">By posting, you agree to TikTok's <a href="https://www.tiktok.com/legal/page/global/music-usage-confirmation/en" target="_blank">Music Usage Confirmation</a>.</p>
+ <span id="postWrap"><button id="postBtn" disabled>Post</button></span>
+ <p class="muted">After you publish, it may take a few minutes for the video to be processed and visible on your profile.</p>
+ <p id="status"></p>
+</div>
+</div>
+
+<p class="muted"><a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a></p>
+<script>
+// Architecture: this static page is the UI. Token exchange and all TikTok API calls (creator_info, video init/upload,
+// status polling) are done by a small backend running on the creator's own machine (BACKEND below), which holds the
+// client_secret. The secret is never in this page. If no backend is reachable, the page runs in demo mode.
+const CLIENT_KEY='sbaw0bftyces4j5ze5', REDIRECT='https://www.ciuperman.ro/tiktok-callback/';
+const BACKEND=localStorage.getItem('poster_backend')||'http://localhost:8787';
+const $=id=>document.getElementById(id);
+let ci=null, dur=0;
+$('loginBtn').onclick=()=>{const s=crypto.randomUUID();sessionStorage.setItem('tt_state',s);
+ location.href='https://www.tiktok.com/v2/auth/authorize/?client_key='+CLIENT_KEY+'&scope=user.info.basic,video.upload,video.publish&response_type=code&redirect_uri='+encodeURIComponent(REDIRECT)+'&state='+s;};
+async function api(p,opt){const r=await fetch(BACKEND+p,opt);return r.json();}
+async function loadCreator(){
+ try{ci=await api('/creator_info');}catch(e){ci={demo:true,creator_nickname:'ciuperman',creator_username:'ciuperhan',creator_avatar_url:'',
+  privacy_level_options:['PUBLIC_TO_EVERYONE','MUTUAL_FOLLOW_FRIENDS','SELF_ONLY'],comment_disabled:false,duet_disabled:false,stitch_disabled:false,max_video_post_duration_sec:600};}
+ $('loginCard').hidden=true;$('app').hidden=false;
+ $('nick').textContent=ci.creator_nickname;$('uname').textContent='@'+ci.creator_username+(ci.demo?' (demo mode – backend offline)':'');
+ if(ci.creator_avatar_url)$('avatar').src=ci.creator_avatar_url;
+ if(ci.can_post===false)$('cantPost').hidden=false;
+ const names={PUBLIC_TO_EVERYONE:'Everyone',MUTUAL_FOLLOW_FRIENDS:'Friends',FOLLOWER_OF_CREATOR:'Followers',SELF_ONLY:'Only me'};
+ ci.privacy_level_options.forEach(o=>{const op=new Option(names[o]||o,o);$('privacy').add(op);});
+ [['comment','lc'],['duet','ld'],['stitch','ls']].forEach(([k,l])=>{if(ci[k+'_disabled']){$(k).disabled=true;$(l).classList.add('disabled');$(l).title='Disabled in your TikTok settings';}});
+ update();}
+$('file').onchange=e=>{const f=e.target.files[0];if(!f)return;const v=$('preview');v.src=URL.createObjectURL(f);v.hidden=false;
+ v.onloadedmetadata=()=>{dur=v.duration;const max=ci.max_video_post_duration_sec;$('durErr').hidden=dur<=max;$('durErr').textContent='Video is longer than the '+max+'s maximum allowed for this account.';update();};};
+function update(){
+ const cc=$('cc').checked,yb=$('yourBrand').checked,bc=$('branded').checked,priv=$('privacy').value;
+ $('ccOpts').hidden=!cc;
+ // Branded content cannot be private
+ const selfOpt=[...$('privacy').options].find(o=>o.value==='SELF_ONLY');
+ if(selfOpt){selfOpt.disabled=cc&&bc;selfOpt.title=cc&&bc?'Branded content visibility cannot be set to private.':'';}
+ $('branded').disabled=priv==='SELF_ONLY';$('lbc').title=priv==='SELF_ONLY'?'Branded content visibility cannot be set to private.':'';
+ $('lbc').classList.toggle('disabled',priv==='SELF_ONLY');
+ $('ccLabel').textContent=!cc?'':bc?"Your photo/video will be labeled as 'Paid partnership'":yb?"Your photo/video will be labeled as 'Promotional content'":'';
+ const MU='<a href="https://www.tiktok.com/legal/page/global/music-usage-confirmation/en" target="_blank">Music Usage Confirmation</a>';
+ $('declaration').innerHTML=cc&&bc?"By posting, you agree to TikTok's <a href=\"https://www.tiktok.com/legal/page/global/bc-policy/en\" target=\"_blank\">Branded Content Policy</a> and "+MU+'.':"By posting, you agree to TikTok's "+MU+'.';
+ const ccBad=cc&&!yb&&!bc;
+ $('postWrap').title=ccBad?'You need to indicate if your content promotes yourself, a third party, or both.':'';
+ $('postBtn').disabled=!priv||!$('file').files[0]||ccBad||dur>ci.max_video_post_duration_sec||ci.can_post===false;}
+['privacy','cc','yourBrand','branded','title','comment','duet','stitch'].forEach(i=>$(i).addEventListener('change',update));
+$('postBtn').onclick=async()=>{
+ const body={title:$('title').value,privacy_level:$('privacy').value,disable_comment:!$('comment').checked,disable_duet:!$('duet').checked,
+  disable_stitch:!$('stitch').checked,brand_content_toggle:$('cc').checked&&$('branded').checked,brand_organic_toggle:$('cc').checked&&$('yourBrand').checked};
+ $('postBtn').disabled=true;$('status').textContent='Uploading…';
+ if(ci.demo){$('status').textContent='Demo mode: no backend connected, nothing was sent to TikTok.';return;}
+ const fd=new FormData();fd.append('video',$('file').files[0]);fd.append('meta',JSON.stringify(body));
+ const r=await api('/post',{method:'POST',body:fd});if(!r.publish_id){$('status').textContent='Error: '+(r.error||'unknown');return;}
+ const poll=async()=>{const s=await api('/status?publish_id='+encodeURIComponent(r.publish_id));$('status').textContent='Status: '+s.status;
+  if(!['PUBLISH_COMPLETE','FAILED','SEND_TO_USER_INBOX'].includes(s.status))setTimeout(poll,4000);};poll();};
+if(new URLSearchParams(location.search).has('connected')||sessionStorage.getItem('tt_connected'))loadCreator();
+</script></body></html>
